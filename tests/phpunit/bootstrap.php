@@ -7,24 +7,24 @@
  * file-system and database round trip, so it is exercised in DDEV instead
  * (see SETUP.md), not mocked here.
  *
- * @package OneClickMultisite
+ * @package Siteunfold
  */
 
 declare(strict_types=1);
 
-$one_click_multisite_autoload = dirname( __DIR__, 2 ) . '/vendor/autoload.php';
+$siteunfold_autoload = dirname( __DIR__, 2 ) . '/vendor/autoload.php';
 
-if ( ! is_readable( $one_click_multisite_autoload ) ) {
+if ( ! is_readable( $siteunfold_autoload ) ) {
 	// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fwrite -- CLI bootstrap, no WP_Filesystem available.
 	fwrite( STDERR, "Dependencies not installed. Run `composer install` first.\n" );
 	exit( 1 );
 }
 
-require $one_click_multisite_autoload;
+require $siteunfold_autoload;
 require __DIR__ . '/Stubs/wp-classes.php';
 
 // Production code reads ABSPATH; point it at a directory that holds no WordPress install.
 if ( ! defined( 'ABSPATH' ) ) {
 	// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- WordPress core's own constant.
-	define( 'ABSPATH', sys_get_temp_dir() . '/one-click-multisite-tests/wordpress/' );
+	define( 'ABSPATH', sys_get_temp_dir() . '/siteunfold-tests/wordpress/' );
 }

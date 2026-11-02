@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Admin;
+namespace Siteunfold\Admin;
 
-use OneClickMultisite\Conversion\ConversionResult;
-use OneClickMultisite\Revert\SingleSiteReverter;
+use Siteunfold\Conversion\ConversionResult;
+use Siteunfold\Revert\SingleSiteReverter;
 
 /**
  * Handles the admin-post form submission that reverts the network.
@@ -15,7 +15,7 @@ final class RevertController {
 	/**
 	 * The admin-post action name and nonce action.
 	 */
-	public const ACTION = 'one_click_multisite_revert';
+	public const ACTION = 'siteunfold_revert';
 
 	/**
 	 * Constructor.
@@ -41,13 +41,13 @@ final class RevertController {
 	 */
 	public function handle(): void {
 		if ( ! is_multisite() || ! current_user_can( RevertPage::CAPABILITY ) ) {
-			wp_die( esc_html__( 'You do not have permission to perform this action.', 'one-click-multisite' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You do not have permission to perform this action.', 'siteunfold' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( self::ACTION );
 
 		if ( ! isset( $_POST['confirm_backup'] ) || '1' !== sanitize_key( wp_unslash( $_POST['confirm_backup'] ) ) ) {
-			$this->notice->store( ConversionResult::failure( __( 'Confirm that you have a backup first.', 'one-click-multisite' ) ), Notice::REVERT );
+			$this->notice->store( ConversionResult::failure( __( 'Confirm that you have a backup first.', 'siteunfold' ) ), Notice::REVERT );
 			wp_safe_redirect( RevertPage::url() );
 			exit;
 		}

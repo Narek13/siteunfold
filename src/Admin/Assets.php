@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Admin;
+namespace Siteunfold\Admin;
 
 /**
  * Enqueues the admin stylesheet, only on the plugin's own screens.
@@ -21,10 +21,10 @@ final class Assets {
 				}
 
 				wp_enqueue_style(
-					'one-click-multisite-admin',
-					ONE_CLICK_MULTISITE_URL . 'assets/admin.css',
+					'siteunfold-admin',
+					SITEUNFOLD_URL . 'assets/admin.css',
 					array(),
-					ONE_CLICK_MULTISITE_VERSION
+					SITEUNFOLD_VERSION
 				);
 			}
 		);

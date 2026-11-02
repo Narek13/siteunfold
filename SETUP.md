@@ -3,7 +3,7 @@
 ## DDEV
 
 ```bash
-cd one-click-multisite
+cd siteunfold
 ddev start
 ```
 
@@ -13,12 +13,12 @@ On first run the `post-start` hook (`.ddev/commands/setup.sh`):
 2. sets pretty permalinks and removes the sample plugins;
 3. activates this plugin.
 
-The site runs on **Apache** (`webserver_type: apache-fpm`), so the .htaccess rules the plugin writes are actually used. The repo is mounted read-only at `wp-content/plugins/one-click-multisite`, so edits here are live immediately.
+The site runs on **Apache** (`webserver_type: apache-fpm`), so the .htaccess rules the plugin writes are actually used. The repo is mounted read-only at `wp-content/plugins/siteunfold`, so edits here are live immediately.
 
 | Command | What it does |
 |---|---|
 | `ddev launch wp-admin` | wp-admin, `admin` / `admin` |
-| `ddev launch /wp-admin/tools.php?page=one-click-multisite` | the plugin screen |
+| `ddev launch /wp-admin/tools.php?page=siteunfold` | the plugin screen |
 | `ddev reset-single-site` | undo a conversion without the plugin (for when the plugin's own revert is the thing under test): removes the multisite defines, drops the network and sub-site tables, restores single-site .htaccess |
 | `ddev composer install` | dev dependencies inside the container |
 
@@ -56,12 +56,12 @@ Run it against the built zip, not the repo: the repo contains `.ddev/wordpress` 
 ```bash
 bash bin/build-zip.sh
 ddev wp plugin install plugin-check --activate
-ddev wp plugin check /var/www/html/dist/one-click-multisite --slug=one-click-multisite
+ddev wp plugin check /var/www/html/dist/siteunfold --slug=siteunfold
 ```
 
 ## Translations template
 
 ```bash
 bash bin/build-zip.sh
-ddev exec "wp i18n make-pot /var/www/html/dist/one-click-multisite /var/www/html/languages/one-click-multisite.pot --slug=one-click-multisite --domain=one-click-multisite"
+ddev exec "wp i18n make-pot /var/www/html/dist/siteunfold /var/www/html/languages/siteunfold.pot --slug=siteunfold --domain=siteunfold"
 ```

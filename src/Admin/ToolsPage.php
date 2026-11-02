@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Admin;
+namespace Siteunfold\Admin;
 
-use OneClickMultisite\Conversion\PrerequisiteChecker;
+use Siteunfold\Conversion\PrerequisiteChecker;
 
 /**
  * The Tools > Convert to Multisite screen.
@@ -14,12 +14,12 @@ final class ToolsPage {
 	/**
 	 * Menu slug.
 	 */
-	public const SLUG = 'one-click-multisite';
+	public const SLUG = 'siteunfold';
 
 	/**
 	 * Screen hook suffix WordPress assigns to the page.
 	 */
-	public const HOOK_SUFFIX = 'tools_page_one-click-multisite';
+	public const HOOK_SUFFIX = 'tools_page_siteunfold';
 
 	/**
 	 * Capability required to see the page and run the conversion. Core's own
@@ -53,7 +53,7 @@ final class ToolsPage {
 	 */
 	public function register(): void {
 		add_action( 'admin_menu', array( $this, 'addMenu' ) );
-		add_filter( 'plugin_action_links_' . plugin_basename( ONE_CLICK_MULTISITE_FILE ), array( $this, 'addActionLink' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( SITEUNFOLD_FILE ), array( $this, 'addActionLink' ) );
 		add_action( 'network_admin_notices', array( $this, 'renderNetworkNotice' ) );
 	}
 
@@ -66,8 +66,8 @@ final class ToolsPage {
 		}
 
 		add_management_page(
-			__( 'Convert to Multisite', 'one-click-multisite' ),
-			__( 'Convert to Multisite', 'one-click-multisite' ),
+			__( 'Convert to Multisite', 'siteunfold' ),
+			__( 'Convert to Multisite', 'siteunfold' ),
 			self::CAPABILITY,
 			self::SLUG,
 			array( $this, 'render' )
@@ -88,10 +88,10 @@ final class ToolsPage {
 		$link = sprintf(
 			'<a href="%s">%s</a>',
 			esc_url( self::url() ),
-			esc_html__( 'Convert to Multisite', 'one-click-multisite' )
+			esc_html__( 'Convert to Multisite', 'siteunfold' )
 		);
 
-		return array_merge( array( 'one-click-multisite' => $link ), $links );
+		return array_merge( array( 'siteunfold' => $link ), $links );
 	}
 
 	/**
@@ -107,7 +107,7 @@ final class ToolsPage {
 			return;
 		}
 
-		require ONE_CLICK_MULTISITE_DIR . 'templates/network-notice.php';
+		require SITEUNFOLD_DIR . 'templates/network-notice.php';
 	}
 
 	/**
@@ -115,7 +115,7 @@ final class ToolsPage {
 	 */
 	public function render(): void {
 		if ( ! current_user_can( self::CAPABILITY ) ) {
-			wp_die( esc_html__( 'You do not have permission to access this page.', 'one-click-multisite' ) );
+			wp_die( esc_html__( 'You do not have permission to access this page.', 'siteunfold' ) );
 		}
 
 		$environment         = $this->checker->environment();
@@ -127,6 +127,6 @@ final class ToolsPage {
 		$revertNotice        = $this->notice->pull( Notice::REVERT );
 		$action              = ConversionController::ACTION;
 
-		require ONE_CLICK_MULTISITE_DIR . 'templates/tools-page.php';
+		require SITEUNFOLD_DIR . 'templates/tools-page.php';
 	}
 }

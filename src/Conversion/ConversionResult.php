@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Conversion;
+namespace Siteunfold\Conversion;
 
 /**
  * Outcome of a multisite conversion attempt.

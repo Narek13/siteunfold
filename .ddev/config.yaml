@@ -1,4 +1,4 @@
-name: one-click-multisite
+name: siteunfold
 type: wordpress
 docroot: .ddev/wordpress
 php_version: "8.1"
@@ -16,7 +16,7 @@ hooks:
     post-start:
         - exec: .ddev/commands/setup.sh
 web_environment:
-    - WP_TITLE=One Click Multisite
+    - WP_TITLE=Siteunfold
     - ADMIN_USER=admin
     - ADMIN_PASS=admin
 upload_dirs:

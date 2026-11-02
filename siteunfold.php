@@ -1,18 +1,18 @@
 <?php
 /**
- * Plugin Name:       One Click Multisite
- * Description:       Convert a single-site WordPress installation into a multisite network with one click from Tools > Convert to Multisite, and revert it back.
- * Version:           1.1.0
+ * Plugin Name:       Siteunfold – Convert Your Site to Multisite
+ * Description:       Convert your site to Multisite with one click from Tools > Convert to Multisite, and revert it back to a single site.
+ * Version:           1.2.0
  * Requires at least: 6.4
  * Requires PHP:      8.1
  * Author:            Narek Zakarian
  * Author URI:        https://profile.wordpress.org/nareknovembit
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       one-click-multisite
+ * Text Domain:       siteunfold
  * Domain Path:       /languages
  *
- * @package OneClickMultisite
+ * @package Siteunfold
  */
 
 declare(strict_types=1);
@@ -20,14 +20,14 @@ declare(strict_types=1);
 // No direct access.
 defined( 'ABSPATH' ) || exit;
 
-if ( defined( 'ONE_CLICK_MULTISITE_VERSION' ) ) {
+if ( defined( 'SITEUNFOLD_VERSION' ) ) {
 	return;
 }
 
-define( 'ONE_CLICK_MULTISITE_VERSION', '1.1.0' );
-define( 'ONE_CLICK_MULTISITE_FILE', __FILE__ );
-define( 'ONE_CLICK_MULTISITE_DIR', plugin_dir_path( __FILE__ ) );
-define( 'ONE_CLICK_MULTISITE_URL', plugin_dir_url( __FILE__ ) );
+define( 'SITEUNFOLD_VERSION', '1.2.0' );
+define( 'SITEUNFOLD_FILE', __FILE__ );
+define( 'SITEUNFOLD_DIR', plugin_dir_path( __FILE__ ) );
+define( 'SITEUNFOLD_URL', plugin_dir_url( __FILE__ ) );
 
 /*
  * Autoloading.
@@ -36,17 +36,17 @@ define( 'ONE_CLICK_MULTISITE_URL', plugin_dir_url( __FILE__ ) );
  * Otherwise fall back to a tiny PSR-4 autoloader so the plugin runs as soon as
  * it's dropped into wp-content/plugins, no build step required.
  */
-if ( is_readable( ONE_CLICK_MULTISITE_DIR . 'vendor/autoload.php' ) ) {
-	require ONE_CLICK_MULTISITE_DIR . 'vendor/autoload.php';
+if ( is_readable( SITEUNFOLD_DIR . 'vendor/autoload.php' ) ) {
+	require SITEUNFOLD_DIR . 'vendor/autoload.php';
 } else {
 	spl_autoload_register(
 		static function ( string $class_name ): void {
-			$prefix = 'OneClickMultisite\\';
+			$prefix = 'Siteunfold\\';
 			if ( ! str_starts_with( $class_name, $prefix ) ) {
 				return;
 			}
 			$relative = substr( $class_name, strlen( $prefix ) );
-			$path     = ONE_CLICK_MULTISITE_DIR . 'src/' . str_replace( '\\', '/', $relative ) . '.php';
+			$path     = SITEUNFOLD_DIR . 'src/' . str_replace( '\\', '/', $relative ) . '.php';
 			if ( is_readable( $path ) ) {
 				require $path;
 			}
@@ -54,7 +54,7 @@ if ( is_readable( ONE_CLICK_MULTISITE_DIR . 'vendor/autoload.php' ) ) {
 	);
 }
 
-use OneClickMultisite\Plugin;
+use Siteunfold\Plugin;
 
 // Boot once WordPress and all plugins are loaded.
 add_action(

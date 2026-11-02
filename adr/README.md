@@ -10,5 +10,6 @@ Format: Context, Decision, Consequences. Keep them brief.
 | [0002](0002-no-runtime-dependencies.md) | No runtime dependencies | Accepted |
 | [0003](0003-ddev-with-apache.md) | DDEV with Apache for local development | Accepted |
 | [0004](0004-revert-only-single-site-networks.md) | Revert to a single site, only while the network holds just the main site | Accepted |
+| [0005](0005-name-siteunfold.md) | Name: Siteunfold – Convert Your Site to Multisite | Accepted |
 
 New ADR: copy `0000-template.md`, bump the number, fill it in, add a row above.

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Tests\Unit;
+namespace Siteunfold\Tests\Unit;
 
-use OneClickMultisite\Conversion\WpConfigEditor;
+use Siteunfold\Conversion\WpConfigEditor;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -205,5 +205,16 @@ final class WpConfigEditorTest extends TestCase {
 		$contents = str_replace( '/* That', "// define( 'MULTISITE', true );\n/* That", self::SAMPLE );
 
 		self::assertSame( $contents, ( new WpConfigEditor() )->remove( $contents, array( 'MULTISITE' ) ) );
+	}
+
+	/**
+	 * GIVEN a wp-config.php converted by version 1.0 or 1.1, released as "One Click Multisite"
+	 * WHEN the multisite constants are removed
+	 * THEN the old marker comment goes too and the original file comes back.
+	 */
+	public function testRemoveHandlesLegacyMarker(): void {
+		$converted = str_replace( '/* That', "/* Multisite. Added by One Click Multisite. */\ndefine( 'MULTISITE', true );\n\n/* That", self::SAMPLE );
+
+		self::assertSame( self::SAMPLE, ( new WpConfigEditor() )->remove( $converted, array( 'MULTISITE' ) ) );
 	}
 }

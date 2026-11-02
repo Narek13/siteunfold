@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Conversion;
+namespace Siteunfold\Conversion;
 
 /**
  * Builds the Apache rewrite rules for a multisite network, and the

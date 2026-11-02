@@ -9,7 +9,7 @@ cd "${DDEV_DOCROOT}"
 
 # 1. wp-config.php: drop the block the plugin added, plus any stray multisite defines.
 sed -i \
-  -e '/^\/\* Multisite\. Added by One Click Multisite\. \*\/$/d' \
+  -e '/^\/\* Multisite\. Added by \(Siteunfold\|One Click Multisite\)\. \*\/$/d' \
   -e "/^define( *'\(WP_ALLOW_MULTISITE\|MULTISITE\|SUBDOMAIN_INSTALL\|DOMAIN_CURRENT_SITE\|PATH_CURRENT_SITE\|SITE_ID_CURRENT_SITE\|BLOG_ID_CURRENT_SITE\)'/d" \
   wp-config.php
 
@@ -28,4 +28,4 @@ wp rewrite flush --hard --skip-plugins --skip-themes
 
 wp plugin activate "${DDEV_PROJECT}" --skip-themes || true
 
-echo "Back to a single site: ${DDEV_PRIMARY_URL}/wp-admin/tools.php?page=one-click-multisite"
+echo "Back to a single site: ${DDEV_PRIMARY_URL}/wp-admin/tools.php?page=siteunfold"

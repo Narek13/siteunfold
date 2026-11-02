@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Admin;
+namespace Siteunfold\Admin;
 
-use OneClickMultisite\Revert\RevertChecker;
+use Siteunfold\Revert\RevertChecker;
 
 /**
  * The Network Admin > Settings > Revert to Single Site screen.
@@ -14,12 +14,12 @@ final class RevertPage {
 	/**
 	 * Menu slug.
 	 */
-	public const SLUG = 'one-click-multisite-revert';
+	public const SLUG = 'siteunfold-revert';
 
 	/**
 	 * Hook suffix admin_enqueue_scripts receives for the page (the screen ID gets "-network", the hook suffix does not).
 	 */
-	public const HOOK_SUFFIX = 'settings_page_one-click-multisite-revert';
+	public const HOOK_SUFFIX = 'settings_page_siteunfold-revert';
 
 	/**
 	 * Capability required to see the page and run the revert (super admins).
@@ -52,7 +52,7 @@ final class RevertPage {
 	 */
 	public function register(): void {
 		add_action( 'network_admin_menu', array( $this, 'addMenu' ) );
-		add_filter( 'network_admin_plugin_action_links_' . plugin_basename( ONE_CLICK_MULTISITE_FILE ), array( $this, 'addActionLink' ) );
+		add_filter( 'network_admin_plugin_action_links_' . plugin_basename( SITEUNFOLD_FILE ), array( $this, 'addActionLink' ) );
 	}
 
 	/**
@@ -61,8 +61,8 @@ final class RevertPage {
 	public function addMenu(): void {
 		add_submenu_page(
 			'settings.php',
-			__( 'Revert to Single Site', 'one-click-multisite' ),
-			__( 'Revert to Single Site', 'one-click-multisite' ),
+			__( 'Revert to Single Site', 'siteunfold' ),
+			__( 'Revert to Single Site', 'siteunfold' ),
 			self::CAPABILITY,
 			self::SLUG,
 			array( $this, 'render' )
@@ -83,10 +83,10 @@ final class RevertPage {
 		$link = sprintf(
 			'<a href="%s">%s</a>',
 			esc_url( self::url() ),
-			esc_html__( 'Revert to Single Site', 'one-click-multisite' )
+			esc_html__( 'Revert to Single Site', 'siteunfold' )
 		);
 
-		return array_merge( array( 'one-click-multisite-revert' => $link ), $links );
+		return array_merge( array( 'siteunfold-revert' => $link ), $links );
 	}
 
 	/**
@@ -94,7 +94,7 @@ final class RevertPage {
 	 */
 	public function render(): void {
 		if ( ! current_user_can( self::CAPABILITY ) ) {
-			wp_die( esc_html__( 'You do not have permission to access this page.', 'one-click-multisite' ) );
+			wp_die( esc_html__( 'You do not have permission to access this page.', 'siteunfold' ) );
 		}
 
 		$prerequisites = $this->checker->check();
@@ -102,6 +102,6 @@ final class RevertPage {
 		$notice        = $this->notice->pull( Notice::REVERT );
 		$action        = RevertController::ACTION;
 
-		require ONE_CLICK_MULTISITE_DIR . 'templates/revert-page.php';
+		require SITEUNFOLD_DIR . 'templates/revert-page.php';
 	}
 }

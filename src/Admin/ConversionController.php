@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Admin;
+namespace Siteunfold\Admin;
 
-use OneClickMultisite\Conversion\MultisiteConverter;
+use Siteunfold\Conversion\MultisiteConverter;
 
 /**
  * Handles the admin-post form submission that triggers the conversion.
@@ -14,7 +14,7 @@ final class ConversionController {
 	/**
 	 * The admin-post action name and nonce action.
 	 */
-	public const ACTION = 'one_click_multisite_convert';
+	public const ACTION = 'siteunfold_convert';
 
 	/**
 	 * Constructor.
@@ -40,7 +40,7 @@ final class ConversionController {
 	 */
 	public function handle(): void {
 		if ( ! current_user_can( ToolsPage::CAPABILITY ) ) {
-			wp_die( esc_html__( 'You do not have permission to perform this action.', 'one-click-multisite' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You do not have permission to perform this action.', 'siteunfold' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( self::ACTION );

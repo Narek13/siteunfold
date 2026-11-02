@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Revert;
+namespace Siteunfold\Revert;
 
-use OneClickMultisite\Conversion\Environment;
-use OneClickMultisite\Conversion\PrerequisiteResult;
-use OneClickMultisite\Conversion\WpConfigEditor;
+use Siteunfold\Conversion\Environment;
+use Siteunfold\Conversion\PrerequisiteResult;
+use Siteunfold\Conversion\WpConfigEditor;
 use WP_User;
 
 /**
@@ -72,9 +72,9 @@ final class RevertChecker {
 		if ( ! is_multisite() ) {
 			$this->results = array(
 				new PrerequisiteResult(
-					__( 'Multisite network', 'one-click-multisite' ),
+					__( 'Multisite network', 'siteunfold' ),
 					false,
-					__( 'This site is not a multisite network.', 'one-click-multisite' )
+					__( 'This site is not a multisite network.', 'siteunfold' )
 				),
 			);
 
@@ -115,7 +115,7 @@ final class RevertChecker {
 	 * @return PrerequisiteResult
 	 */
 	private function checkOnlyMainSite(): PrerequisiteResult {
-		$label    = __( 'Only the main site exists', 'one-click-multisite' );
+		$label    = __( 'Only the main site exists', 'siteunfold' );
 		$sites    = (int) get_sites( array( 'count' => true ) );
 		$networks = (int) get_networks( array( 'count' => true ) );
 
@@ -123,7 +123,7 @@ final class RevertChecker {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'This installation runs more than one network. Reverting is only possible for a single network.', 'one-click-multisite' )
+				__( 'This installation runs more than one network. Reverting is only possible for a single network.', 'siteunfold' )
 			);
 		}
 
@@ -137,7 +137,7 @@ final class RevertChecker {
 						'The network has %d site besides the main site. Every site has its own tables and uploads, which a single site cannot use. Delete it under Sites (export its content first if you need it), then come back.',
 						'The network has %d sites besides the main site. Every site has its own tables and uploads, which a single site cannot use. Delete them under Sites (export their content first if you need it), then come back.',
 						$sites - 1,
-						'one-click-multisite'
+						'siteunfold'
 					),
 					$sites - 1
 				)
@@ -153,13 +153,13 @@ final class RevertChecker {
 	 * @return PrerequisiteResult
 	 */
 	private function checkMainSiteLayout(): PrerequisiteResult {
-		$label = __( 'Main site uses the single-site layout', 'one-click-multisite' );
+		$label = __( 'Main site uses the single-site layout', 'siteunfold' );
 
 		if ( 1 !== get_main_site_id() || 1 !== get_current_network_id() ) {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'The main site is not site 1 of network 1, so its tables do not use the single-site prefix.', 'one-click-multisite' )
+				__( 'The main site is not site 1 of network 1, so its tables do not use the single-site prefix.', 'siteunfold' )
 			);
 		}
 
@@ -167,7 +167,7 @@ final class RevertChecker {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'This network was created before WordPress 3.5 and serves uploads through ms-files.php. Those uploads are stored per site and would be lost on a single site.', 'one-click-multisite' )
+				__( 'This network was created before WordPress 3.5 and serves uploads through ms-files.php. Those uploads are stored per site and would be lost on a single site.', 'siteunfold' )
 			);
 		}
 
@@ -183,14 +183,14 @@ final class RevertChecker {
 	 * @return PrerequisiteResult
 	 */
 	private function checkAdministrator(): PrerequisiteResult {
-		$label = __( 'You stay an administrator', 'one-click-multisite' );
+		$label = __( 'You stay an administrator', 'siteunfold' );
 		$user  = new WP_User( get_current_user_id(), '', get_main_site_id() );
 
 		if ( ! in_array( 'administrator', $user->roles, true ) ) {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'Your account has no Administrator role on the main site. Super admin rights disappear with the network, so you would be locked out. Give yourself the Administrator role on the main site first.', 'one-click-multisite' )
+				__( 'Your account has no Administrator role on the main site. Super admin rights disappear with the network, so you would be locked out. Give yourself the Administrator role on the main site first.', 'siteunfold' )
 			);
 		}
 
@@ -203,13 +203,13 @@ final class RevertChecker {
 	 * @return PrerequisiteResult
 	 */
 	private function checkFilesystemMethod(): PrerequisiteResult {
-		$label = __( 'Direct file system access', 'one-click-multisite' );
+		$label = __( 'Direct file system access', 'siteunfold' );
 
 		if ( ! $this->environment->hasDirectFilesystem() ) {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'WordPress cannot write files directly on this server (it would need FTP or SSH credentials).', 'one-click-multisite' )
+				__( 'WordPress cannot write files directly on this server (it would need FTP or SSH credentials).', 'siteunfold' )
 			);
 		}
 
@@ -222,14 +222,14 @@ final class RevertChecker {
 	 * @return PrerequisiteResult
 	 */
 	private function checkWpConfig(): PrerequisiteResult {
-		$label  = __( 'Multisite settings can be removed from wp-config.php', 'one-click-multisite' );
+		$label  = __( 'Multisite settings can be removed from wp-config.php', 'siteunfold' );
 		$config = $this->environment->wpConfigPath();
 
 		if ( null === $config || ! wp_is_writable( $config ) ) {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'wp-config.php could not be located or is not writable.', 'one-click-multisite' )
+				__( 'wp-config.php could not be located or is not writable.', 'siteunfold' )
 			);
 		}
 
@@ -240,7 +240,7 @@ final class RevertChecker {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'wp-config.php could not be read.', 'one-click-multisite' )
+				__( 'wp-config.php could not be read.', 'siteunfold' )
 			);
 		}
 
@@ -248,7 +248,7 @@ final class RevertChecker {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'MULTISITE is not defined in wp-config.php itself (it may come from another included file or the hosting environment). Remove it there by hand.', 'one-click-multisite' )
+				__( 'MULTISITE is not defined in wp-config.php itself (it may come from another included file or the hosting environment). Remove it there by hand.', 'siteunfold' )
 			);
 		}
 
@@ -256,7 +256,7 @@ final class RevertChecker {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'Some multisite constants in wp-config.php are not plain one-line define() statements, so they cannot be removed safely. Remove them by hand.', 'one-click-multisite' )
+				__( 'Some multisite constants in wp-config.php are not plain one-line define() statements, so they cannot be removed safely. Remove them by hand.', 'siteunfold' )
 			);
 		}
 
@@ -269,13 +269,13 @@ final class RevertChecker {
 	 * @return PrerequisiteResult
 	 */
 	private function checkRewriteRules(): PrerequisiteResult {
-		$label = __( 'Rewrite rules can be restored', 'one-click-multisite' );
+		$label = __( 'Rewrite rules can be restored', 'siteunfold' );
 
 		if ( ! $this->environment->usesHtaccess() ) {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'This server does not use .htaccess (for example nginx). After reverting, replace the multisite rewrite rules in your server configuration with the standard WordPress ones.', 'one-click-multisite' ),
+				__( 'This server does not use .htaccess (for example nginx). After reverting, replace the multisite rewrite rules in your server configuration with the standard WordPress ones.', 'siteunfold' ),
 				false
 			);
 		}
@@ -286,7 +286,7 @@ final class RevertChecker {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( '.htaccess is not writable. Please check the file permissions.', 'one-click-multisite' )
+				__( '.htaccess is not writable. Please check the file permissions.', 'siteunfold' )
 			);
 		}
 
@@ -299,7 +299,7 @@ final class RevertChecker {
 	 * @return PrerequisiteResult
 	 */
 	private function checkUsers(): PrerequisiteResult {
-		$label   = __( 'All users belong to the main site', 'one-click-multisite' );
+		$label   = __( 'All users belong to the main site', 'siteunfold' );
 		$outside = max( 0, $this->countUsers( 0 ) - $this->countUsers( get_main_site_id() ) );
 
 		if ( $outside > 0 ) {
@@ -312,7 +312,7 @@ final class RevertChecker {
 						'%d account has no role on the main site. It is kept, but has no role after reverting.',
 						'%d accounts have no role on the main site. They are kept, but have no role after reverting.',
 						$outside,
-						'one-click-multisite'
+						'siteunfold'
 					),
 					$outside
 				),

@@ -1,6 +1,8 @@
 # CLAUDE.md
 
-One Click Multisite: a WordPress plugin that converts a single-site installation into a multisite network from **Tools → Convert to Multisite**, and reverts a one-site network from **Network Admin → Settings → Revert to Single Site**. Published on WordPress.org through CI (see `RELEASING.md`).
+Siteunfold – Convert Your Site to Multisite: a WordPress plugin that converts a single-site installation into a multisite network from **Tools → Convert to Multisite**, and reverts a one-site network from **Network Admin → Settings → Revert to Single Site**. Published on WordPress.org through CI (see `RELEASING.md`).
+
+**Name (2026-11-02):** "Siteunfold – Convert Your Site to Multisite", wp.org slug and text domain `siteunfold`, code prefix `siteunfold` / `Siteunfold\` / `SITEUNFOLD_`. Renamed from "One Click Multisite" because the WordPress.org review rejected it as generic, with "Multisite" as a potential trademark at the start. Never reintroduce that name. The GitHub repo, local folder and DDEV project are `siteunfold`. See `adr/0005`.
 
 ## Rules
 
@@ -10,7 +12,7 @@ One Click Multisite: a WordPress plugin that converts a single-site installation
 
 ## Structure
 
-Deliberately mirrors **A11yFleet** and **Coldstash** (sibling folders in `wp-content/plugins/`), the reference for how these plugins are built: PSR-4 `src/` (`OneClickMultisite\` → `src/`), a `final class Plugin` singleton service locator, constants plus a fallback autoloader in the main file, `templates/`, `adr/`, `docs/`, `bin/build-zip.sh`, and the same phpcs/phpstan/phpunit/DDEV/CI setup.
+Deliberately mirrors **A11yFleet** and **Coldstash** (sibling folders in `wp-content/plugins/`), the reference for how these plugins are built: PSR-4 `src/` (`Siteunfold\` → `src/`), a `final class Plugin` singleton service locator, constants plus a fallback autoloader in the main file, `templates/`, `adr/`, `docs/`, `bin/build-zip.sh`, and the same phpcs/phpstan/phpunit/DDEV/CI setup.
 
 - `src/Plugin.php`: service locator and boot (admin only).
 - `src/Admin/`: `ToolsPage`, `ConversionController`, `RevertPage`, `RevertController`, `Notice` (per-user, per-context result transients), `Assets`.
@@ -36,7 +38,7 @@ ddev start                  # WordPress on Apache, plugin activated
 ddev reset-single-site      # undo a conversion without the plugin (dev only)
 ```
 
-Admin: https://one-click-multisite.ddev.site/wp-admin (admin / admin). Details in `SETUP.md`.
+Admin: https://siteunfold.ddev.site/wp-admin (admin / admin). Details in `SETUP.md`.
 
 The host shell's default PHP is 8.0; use `export PATH="/opt/homebrew/opt/php@8.3/bin:$PATH"` (or `ddev composer …`) for the toolchain.
 
@@ -45,7 +47,7 @@ The host shell's default PHP is 8.0; use `export PATH="/opt/homebrew/opt/php@8.3
 ```bash
 composer phpcs | phpcs:fix | phpstan | phpunit
 composer test               # all three (CI gate)
-bash bin/build-zip.sh       # dist/one-click-multisite.zip, exclusions from .distignore
+bash bin/build-zip.sh       # dist/siteunfold.zip, exclusions from .distignore
 ```
 
 Run Plugin Check against `dist/`, not the repo (see `SETUP.md`). Releases are tag-driven and deploy to WordPress.org SVN from CI, same as A11yFleet and Coldstash: see `RELEASING.md`.

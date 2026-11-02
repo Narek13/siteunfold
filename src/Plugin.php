@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite;
+namespace Siteunfold;
 
-use OneClickMultisite\Admin\Assets;
-use OneClickMultisite\Admin\ConversionController;
-use OneClickMultisite\Admin\Notice;
-use OneClickMultisite\Admin\RevertController;
-use OneClickMultisite\Admin\RevertPage;
-use OneClickMultisite\Admin\ToolsPage;
-use OneClickMultisite\Conversion\Environment;
-use OneClickMultisite\Conversion\MultisiteConverter;
-use OneClickMultisite\Conversion\PrerequisiteChecker;
-use OneClickMultisite\Revert\RevertChecker;
-use OneClickMultisite\Revert\SingleSiteReverter;
+use Siteunfold\Admin\Assets;
+use Siteunfold\Admin\ConversionController;
+use Siteunfold\Admin\Notice;
+use Siteunfold\Admin\RevertController;
+use Siteunfold\Admin\RevertPage;
+use Siteunfold\Admin\ToolsPage;
+use Siteunfold\Conversion\Environment;
+use Siteunfold\Conversion\MultisiteConverter;
+use Siteunfold\Conversion\PrerequisiteChecker;
+use Siteunfold\Revert\RevertChecker;
+use Siteunfold\Revert\SingleSiteReverter;
 
 /**
  * Plugin container + bootstrap.

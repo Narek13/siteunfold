@@ -1,4 +1,4 @@
-# One Click Multisite
+# Siteunfold
 
 Convert a single-site WordPress installation into a multisite network from **Tools → Convert to Multisite**, and back again from **Network Admin → Settings → Revert to Single Site**, without hand-editing wp-config.php or .htaccess.
 

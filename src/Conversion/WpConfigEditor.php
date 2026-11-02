@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Conversion;
+namespace Siteunfold\Conversion;
 
 /**
  * Adds constant definitions to the contents of a wp-config.php file.
@@ -21,7 +21,13 @@ final class WpConfigEditor {
 	/**
 	 * Comment line written above the constants this plugin adds.
 	 */
-	public const BLOCK_COMMENT = '/* Multisite. Added by One Click Multisite. */';
+	public const BLOCK_COMMENT = '/* Multisite. Added by Siteunfold. */';
+
+	/**
+	 * Comment lines earlier versions wrote, released as "One Click Multisite" (1.0, 1.1).
+	 * Still recognised so networks converted by them can be reverted cleanly.
+	 */
+	public const LEGACY_BLOCK_COMMENTS = array( '/* Multisite. Added by One Click Multisite. */' );
 
 	/**
 	 * Matches the line that loads wp-settings.php — the latest point at which
@@ -65,7 +71,7 @@ final class WpConfigEditor {
 
 	/**
 	 * Removes the `define()` lines of the given constants, wherever they are,
-	 * together with the comment line this plugin adds above its block.
+	 * together with the comment line this plugin (or an earlier version of it) adds above its block.
 	 *
 	 * Only plain one-line `define( 'NAME', value );` statements are removed. A
 	 * constant defined any other way (inside an `if`, across several lines, via
@@ -82,7 +88,9 @@ final class WpConfigEditor {
 			$contents = (string) preg_replace( $pattern, '', $contents );
 		}
 
-		$contents = (string) preg_replace( '/^[ \t]*' . preg_quote( self::BLOCK_COMMENT, '/' ) . '[ \t]*\R(?:[ \t]*\R)?/m', '', $contents );
+		foreach ( array_merge( array( self::BLOCK_COMMENT ), self::LEGACY_BLOCK_COMMENTS ) as $comment ) {
+			$contents = (string) preg_replace( '/^[ \t]*' . preg_quote( $comment, '/' ) . '[ \t]*\R(?:[ \t]*\R)?/m', '', $contents );
+		}
 
 		foreach ( $names as $name ) {
 			if ( $this->defines( $contents, $name ) ) {

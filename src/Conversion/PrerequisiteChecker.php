@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Conversion;
+namespace Siteunfold\Conversion;
 
 /**
  * Checks whether the installation can be converted to a multisite network.
@@ -70,13 +70,13 @@ final class PrerequisiteChecker {
 	 * @return PrerequisiteResult
 	 */
 	private function checkSingleSite(): PrerequisiteResult {
-		$label = __( 'Single site installation', 'one-click-multisite' );
+		$label = __( 'Single site installation', 'siteunfold' );
 
 		if ( is_multisite() ) {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'This site is already running as a multisite network.', 'one-click-multisite' )
+				__( 'This site is already running as a multisite network.', 'siteunfold' )
 			);
 		}
 
@@ -89,14 +89,14 @@ final class PrerequisiteChecker {
 	 * @return PrerequisiteResult
 	 */
 	private function checkWpConfigWritable(): PrerequisiteResult {
-		$label  = __( 'wp-config.php is writable', 'one-click-multisite' );
+		$label  = __( 'wp-config.php is writable', 'siteunfold' );
 		$config = $this->environment->wpConfigPath();
 
 		if ( null === $config ) {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'wp-config.php could not be located.', 'one-click-multisite' )
+				__( 'wp-config.php could not be located.', 'siteunfold' )
 			);
 		}
 
@@ -104,7 +104,7 @@ final class PrerequisiteChecker {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'wp-config.php is not writable. Please check the file permissions.', 'one-click-multisite' )
+				__( 'wp-config.php is not writable. Please check the file permissions.', 'siteunfold' )
 			);
 		}
 
@@ -117,13 +117,13 @@ final class PrerequisiteChecker {
 	 * @return PrerequisiteResult
 	 */
 	private function checkFilesystemMethod(): PrerequisiteResult {
-		$label = __( 'Direct file system access', 'one-click-multisite' );
+		$label = __( 'Direct file system access', 'siteunfold' );
 
 		if ( ! $this->environment->hasDirectFilesystem() ) {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'WordPress cannot write files directly on this server (it would need FTP or SSH credentials). Follow the manual Network Setup steps instead.', 'one-click-multisite' )
+				__( 'WordPress cannot write files directly on this server (it would need FTP or SSH credentials). Follow the manual Network Setup steps instead.', 'siteunfold' )
 			);
 		}
 
@@ -136,13 +136,13 @@ final class PrerequisiteChecker {
 	 * @return PrerequisiteResult
 	 */
 	private function checkServerAddress(): PrerequisiteResult {
-		$label = __( 'Supported site address', 'one-click-multisite' );
+		$label = __( 'Supported site address', 'siteunfold' );
 
 		if ( $this->environment->hasNonStandardPort() ) {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'WordPress cannot create a network on an address with a port number other than 80 or 443.', 'one-click-multisite' )
+				__( 'WordPress cannot create a network on an address with a port number other than 80 or 443.', 'siteunfold' )
 			);
 		}
 
@@ -155,7 +155,7 @@ final class PrerequisiteChecker {
 	 * @return PrerequisiteResult
 	 */
 	private function checkNetworkType(): PrerequisiteResult {
-		$label        = __( 'Network type available', 'one-click-multisite' );
+		$label        = __( 'Network type available', 'siteunfold' );
 		$subdomain    = $this->environment->subdomainAllowed();
 		$subdirectory = $this->environment->subdirectoryAllowed();
 
@@ -163,7 +163,7 @@ final class PrerequisiteChecker {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'Sub-domains are not possible on localhost, an IP address or a site in a sub-folder, and sub-directories are disabled because this site has posts older than a month.', 'one-click-multisite' )
+				__( 'Sub-domains are not possible on localhost, an IP address or a site in a sub-folder, and sub-directories are disabled because this site has posts older than a month.', 'siteunfold' )
 			);
 		}
 
@@ -171,7 +171,7 @@ final class PrerequisiteChecker {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'Only sub-directories are possible: sub-domains need a real domain, not localhost, an IP address or a site in a sub-folder.', 'one-click-multisite' ),
+				__( 'Only sub-directories are possible: sub-domains need a real domain, not localhost, an IP address or a site in a sub-folder.', 'siteunfold' ),
 				false
 			);
 		}
@@ -180,7 +180,7 @@ final class PrerequisiteChecker {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'Only sub-domains are possible: WordPress disables sub-directories once a site has posts older than a month, because their permalinks could collide with new sites.', 'one-click-multisite' ),
+				__( 'Only sub-domains are possible: WordPress disables sub-directories once a site has posts older than a month, because their permalinks could collide with new sites.', 'siteunfold' ),
 				false
 			);
 		}
@@ -198,13 +198,13 @@ final class PrerequisiteChecker {
 	 * @return PrerequisiteResult
 	 */
 	private function checkRewriteRules(): PrerequisiteResult {
-		$label = __( 'Rewrite rules can be written', 'one-click-multisite' );
+		$label = __( 'Rewrite rules can be written', 'siteunfold' );
 
 		if ( ! $this->environment->usesHtaccess() ) {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'This server does not use .htaccess (for example nginx). After converting, add the multisite rewrite rules to your server configuration by hand.', 'one-click-multisite' ),
+				__( 'This server does not use .htaccess (for example nginx). After converting, add the multisite rewrite rules to your server configuration by hand.', 'siteunfold' ),
 				false
 			);
 		}
@@ -215,7 +215,7 @@ final class PrerequisiteChecker {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( '.htaccess exists but is not writable. Please check the file permissions.', 'one-click-multisite' )
+				__( '.htaccess exists but is not writable. Please check the file permissions.', 'siteunfold' )
 			);
 		}
 
@@ -223,7 +223,7 @@ final class PrerequisiteChecker {
 			return new PrerequisiteResult(
 				$label,
 				false,
-				__( 'The WordPress root directory is not writable, so .htaccess cannot be created.', 'one-click-multisite' )
+				__( 'The WordPress root directory is not writable, so .htaccess cannot be created.', 'siteunfold' )
 			);
 		}
 

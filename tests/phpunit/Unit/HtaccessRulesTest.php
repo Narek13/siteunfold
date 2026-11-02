@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Tests\Unit;
+namespace Siteunfold\Tests\Unit;
 
-use OneClickMultisite\Conversion\HtaccessRules;
+use Siteunfold\Conversion\HtaccessRules;
 use PHPUnit\Framework\TestCase;
 
 /**

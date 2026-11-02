@@ -1,5 +1,5 @@
 {
-    "name": "narekzakarian/one-click-multisite",
+    "name": "narekzakarian/siteunfold",
     "type": "wordpress-plugin",
     "description": "Convert a single-site WordPress installation into a multisite network with one click.",
     "license": "GPL-2.0-or-later",
@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "OneClickMultisite\\": "src/"
+            "Siteunfold\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "OneClickMultisite\\Tests\\": "tests/phpunit/"
+            "Siteunfold\\Tests\\": "tests/phpunit/"
         }
     },
     "scripts": {

@@ -1,7 +1,7 @@
 # Releasing
 
-One Click Multisite is published at https://wordpress.org/plugins/one-click-multisite
-from the SVN repository https://plugins.svn.wordpress.org/one-click-multisite.
+Siteunfold is published at https://wordpress.org/plugins/siteunfold
+from the SVN repository https://plugins.svn.wordpress.org/siteunfold.
 Releases are automated: pushing a `v*` tag publishes to SVN. Nobody commits to SVN by hand.
 
 ## Before approval
@@ -10,9 +10,9 @@ Until then the deploy steps in both workflows skip themselves (they check for th
 SVN secrets), so tags still build, run Plugin Check and attach the zip to the GitHub
 release without failing.
 
-1. Confirm the slug `one-click-multisite` is free on https://wordpress.org/plugins/.
+1. Confirm the slug `siteunfold` is free on https://wordpress.org/plugins/.
 2. Build the zip: push a tag (it is attached to the GitHub release) or run
-   `bash bin/build-zip.sh` → `dist/one-click-multisite.zip`.
+   `bash bin/build-zip.sh` → `dist/siteunfold.zip`.
 3. Upload it at https://wordpress.org/plugins/developers/add/ and reply to review
    emails in-thread.
 4. On approval, add the secrets below, then deploy the approved version: Actions →
@@ -25,8 +25,8 @@ Repository secrets on GitHub (Settings → Secrets and variables → Actions):
   WordPress.org profile (separate from the login password).
 
 ## Cutting a release
-1. Bump the version in three places: the `Version:` header and `ONE_CLICK_MULTISITE_VERSION`
-   in `one-click-multisite.php`, and `Stable tag:` in `readme.txt`. Add a changelog
+1. Bump the version in three places: the `Version:` header and `SITEUNFOLD_VERSION`
+   in `siteunfold.php`, and `Stable tag:` in `readme.txt`. Add a changelog
    entry and an upgrade notice.
 2. Regenerate the translation template (see SETUP.md).
 3. `composer test` green.
@@ -34,7 +34,7 @@ Repository secrets on GitHub (Settings → Secrets and variables → Actions):
 
 `.github/workflows/build-and-distribute.yml` then:
 - fails if the three version numbers or the tag disagree;
-- builds `dist/one-click-multisite.zip` (`bin/build-zip.sh`; what is left out is
+- builds `dist/siteunfold.zip` (`bin/build-zip.sh`; what is left out is
   defined once, in `.distignore`);
 - runs Plugin Check on the built package;
 - attaches the zip to the GitHub release;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Revert;
+namespace Siteunfold\Revert;
 
-use OneClickMultisite\Conversion\ConversionResult;
-use OneClickMultisite\Conversion\Environment;
-use OneClickMultisite\Conversion\HtaccessRules;
-use OneClickMultisite\Conversion\WpConfigEditor;
+use Siteunfold\Conversion\ConversionResult;
+use Siteunfold\Conversion\Environment;
+use Siteunfold\Conversion\HtaccessRules;
+use Siteunfold\Conversion\WpConfigEditor;
 
 /**
  * Turns a network that only holds its main site back into a single site.
@@ -49,7 +49,7 @@ final class SingleSiteReverter {
 	 */
 	public function revert(): ConversionResult {
 		if ( ! $this->checker->canRevert() ) {
-			return ConversionResult::failure( __( 'One or more checks did not pass.', 'one-click-multisite' ) );
+			return ConversionResult::failure( __( 'One or more checks did not pass.', 'siteunfold' ) );
 		}
 
 		$environment = $this->checker->environment();
@@ -58,13 +58,13 @@ final class SingleSiteReverter {
 		$filesystem = $environment->filesystem();
 		$configFile = $environment->wpConfigPath();
 		if ( null === $filesystem || null === $configFile ) {
-			return ConversionResult::failure( __( 'Could not initialise the WordPress file system.', 'one-click-multisite' ) );
+			return ConversionResult::failure( __( 'Could not initialise the WordPress file system.', 'siteunfold' ) );
 		}
 
 		$contents = $filesystem->get_contents( $configFile );
 		$updated  = is_string( $contents ) ? $this->wpConfig->remove( $contents, RevertChecker::CONSTANTS ) : null;
 		if ( null === $updated ) {
-			return ConversionResult::failure( __( 'The multisite settings could not be removed from wp-config.php.', 'one-click-multisite' ) );
+			return ConversionResult::failure( __( 'The multisite settings could not be removed from wp-config.php.', 'siteunfold' ) );
 		}
 
 		$this->keepNetworkPluginsActive();
@@ -72,7 +72,7 @@ final class SingleSiteReverter {
 		$subdomainInstall = is_subdomain_install();
 
 		if ( ! Environment::writeKeepingMode( $filesystem, $configFile, $updated ) ) {
-			return ConversionResult::failure( __( 'Could not write to wp-config.php. Nothing was changed.', 'one-click-multisite' ) );
+			return ConversionResult::failure( __( 'Could not write to wp-config.php. Nothing was changed.', 'siteunfold' ) );
 		}
 
 		$this->dropBlogPrefix( $subdomainInstall );
@@ -80,14 +80,14 @@ final class SingleSiteReverter {
 		if ( $environment->usesHtaccess() ) {
 			$lines = HtaccessRules::singleSiteLines( $environment->base(), '' !== (string) get_option( 'permalink_structure' ) );
 			if ( ! insert_with_markers( $environment->htaccessPath(), 'WordPress', $lines ) ) {
-				$warnings[] = __( 'The .htaccess rules could not be restored. Go to Settings > Permalinks and click Save Changes.', 'one-click-multisite' );
+				$warnings[] = __( 'The .htaccess rules could not be restored. Go to Settings > Permalinks and click Save Changes.', 'siteunfold' );
 			}
 		} else {
-			$warnings[] = __( 'This server does not read .htaccess. Replace the multisite rewrite rules in your web server configuration with the standard WordPress ones.', 'one-click-multisite' );
+			$warnings[] = __( 'This server does not read .htaccess. Replace the multisite rewrite rules in your web server configuration with the standard WordPress ones.', 'siteunfold' );
 		}
 
 		if ( ! $this->dropNetworkTables() ) {
-			$warnings[] = __( 'Some network tables could not be removed. A single site ignores them, so this is safe to leave.', 'one-click-multisite' );
+			$warnings[] = __( 'Some network tables could not be removed. A single site ignores them, so this is safe to leave.', 'siteunfold' );
 		}
 
 		wp_cache_flush();

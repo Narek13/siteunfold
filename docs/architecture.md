@@ -1,10 +1,10 @@
 # Architecture
 
-One Click Multisite is an admin-only plugin: one Tools screen, one form handler, and a conversion service that drives WordPress core's own network installer. Nothing runs on the front end.
+Siteunfold is an admin-only plugin: one Tools screen, one form handler, and a conversion service that drives WordPress core's own network installer. Nothing runs on the front end.
 
 ## Boot
 
-`one-click-multisite.php` defines `ONE_CLICK_MULTISITE_{VERSION,FILE,DIR,URL}`, loads Composer's autoloader if `vendor/` exists (otherwise a small PSR-4 fallback), and calls `Plugin::instance()->boot()` on `plugins_loaded`.
+`siteunfold.php` defines `SITEUNFOLD_{VERSION,FILE,DIR,URL}`, loads Composer's autoloader if `vendor/` exists (otherwise a small PSR-4 fallback), and calls `Plugin::instance()->boot()` on `plugins_loaded`.
 
 `Plugin` is a singleton service locator with lazy `??=` getters, the same shape as A11yFleet and Coldstash. `boot()` returns immediately outside wp-admin; in wp-admin it registers `ToolsPage`, `Assets` and `ConversionController`, and on a network also `RevertPage` and `RevertController`.
 

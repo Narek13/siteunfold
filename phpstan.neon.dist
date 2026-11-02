@@ -7,9 +7,9 @@ parameters:
     paths:
         - src
         - templates
-        - one-click-multisite.php
+        - siteunfold.php
         - uninstall.php
-    # Defines the plugin constants (ONE_CLICK_MULTISITE_*) for analysis without booting WP.
+    # Defines the plugin constants (SITEUNFOLD_*) for analysis without booting WP.
     scanFiles:
         - tests/phpstan/constants.php
     treatPhpDocTypesAsCertain: false

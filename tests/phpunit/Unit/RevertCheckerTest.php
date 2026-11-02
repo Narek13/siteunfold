@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Tests\Unit;
+namespace Siteunfold\Tests\Unit;
 
 use Brain\Monkey;
 use Brain\Monkey\Functions;
-use OneClickMultisite\Conversion\Environment;
-use OneClickMultisite\Revert\RevertChecker;
+use Siteunfold\Conversion\Environment;
+use Siteunfold\Revert\RevertChecker;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,7 +21,7 @@ final class RevertCheckerTest extends TestCase {
 	/**
 	 * The multisite block a conversion leaves in wp-config.php.
 	 */
-	private const NETWORK_CONFIG = "<?php\n/* Multisite. Added by One Click Multisite. */\ndefine( 'WP_ALLOW_MULTISITE', true );\ndefine( 'MULTISITE', true );\ndefine( 'SUBDOMAIN_INSTALL', false );\n\n/* That's all, stop editing! Happy publishing. */\nrequire_once ABSPATH . 'wp-settings.php';\n";
+	private const NETWORK_CONFIG = "<?php\n/* Multisite. Added by Siteunfold. */\ndefine( 'WP_ALLOW_MULTISITE', true );\ndefine( 'MULTISITE', true );\ndefine( 'SUBDOMAIN_INSTALL', false );\n\n/* That's all, stop editing! Happy publishing. */\nrequire_once ABSPATH . 'wp-settings.php';\n";
 
 	/**
 	 * Sets up Brain Monkey and stubs a revertible one-site Apache network.

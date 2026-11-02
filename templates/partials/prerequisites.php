@@ -2,9 +2,9 @@
 /**
  * Prerequisites card, shared by the convert and revert screens.
  *
- * @package OneClickMultisite
+ * @package Siteunfold
  *
- * @var list<\OneClickMultisite\Conversion\PrerequisiteResult> $prerequisites
+ * @var list<\Siteunfold\Conversion\PrerequisiteResult> $prerequisites
  * @var bool $ready Whether no check blocks the action.
  */
 
@@ -19,43 +19,43 @@ foreach ( $prerequisites as $prerequisite ) {
 	$hasWarnings = $hasWarnings || $prerequisite->isWarning();
 }
 ?>
-<div class="ocm-card">
-	<div class="ocm-card__header">
-		<h2><?php esc_html_e( 'Prerequisites', 'one-click-multisite' ); ?></h2>
+<div class="siteunfold-card">
+	<div class="siteunfold-card__header">
+		<h2><?php esc_html_e( 'Prerequisites', 'siteunfold' ); ?></h2>
 		<?php if ( ! $ready ) : ?>
-			<span class="ocm-badge ocm-badge--fail"><?php esc_html_e( 'Action required', 'one-click-multisite' ); ?></span>
+			<span class="siteunfold-badge siteunfold-badge--fail"><?php esc_html_e( 'Action required', 'siteunfold' ); ?></span>
 		<?php elseif ( $hasWarnings ) : ?>
-			<span class="ocm-badge ocm-badge--warn"><?php esc_html_e( 'Ready, with notes', 'one-click-multisite' ); ?></span>
+			<span class="siteunfold-badge siteunfold-badge--warn"><?php esc_html_e( 'Ready, with notes', 'siteunfold' ); ?></span>
 		<?php else : ?>
-			<span class="ocm-badge ocm-badge--pass"><?php esc_html_e( 'All checks passed', 'one-click-multisite' ); ?></span>
+			<span class="siteunfold-badge siteunfold-badge--pass"><?php esc_html_e( 'All checks passed', 'siteunfold' ); ?></span>
 		<?php endif; ?>
 	</div>
-	<ul class="ocm-card__rows">
+	<ul class="siteunfold-card__rows">
 		<?php foreach ( $prerequisites as $prerequisite ) : ?>
 			<?php
 			if ( $prerequisite->passes() ) {
-				$rowClass    = 'ocm-row--pass';
+				$rowClass    = 'siteunfold-row--pass';
 				$icon        = '✓';
-				$statusLabel = __( 'Passed:', 'one-click-multisite' );
+				$statusLabel = __( 'Passed:', 'siteunfold' );
 			} elseif ( $prerequisite->isWarning() ) {
-				$rowClass    = 'ocm-row--warn';
+				$rowClass    = 'siteunfold-row--warn';
 				$icon        = '!';
-				$statusLabel = __( 'Note:', 'one-click-multisite' );
+				$statusLabel = __( 'Note:', 'siteunfold' );
 			} else {
-				$rowClass    = 'ocm-row--fail';
+				$rowClass    = 'siteunfold-row--fail';
 				$icon        = '✗';
-				$statusLabel = __( 'Failed:', 'one-click-multisite' );
+				$statusLabel = __( 'Failed:', 'siteunfold' );
 			}
 			?>
-			<li class="ocm-row <?php echo esc_attr( $rowClass ); ?>">
-				<span class="ocm-row__icon" aria-hidden="true"><?php echo esc_html( $icon ); ?></span>
-				<div class="ocm-row__body">
-					<span class="ocm-row__label">
+			<li class="siteunfold-row <?php echo esc_attr( $rowClass ); ?>">
+				<span class="siteunfold-row__icon" aria-hidden="true"><?php echo esc_html( $icon ); ?></span>
+				<div class="siteunfold-row__body">
+					<span class="siteunfold-row__label">
 						<span class="screen-reader-text"><?php echo esc_html( $statusLabel ); ?></span>
 						<?php echo esc_html( $prerequisite->label() ); ?>
 					</span>
 					<?php if ( ! $prerequisite->passes() && '' !== $prerequisite->message() ) : ?>
-						<span class="ocm-row__message"><?php echo esc_html( $prerequisite->message() ); ?></span>
+						<span class="siteunfold-row__message"><?php echo esc_html( $prerequisite->message() ); ?></span>
 					<?php endif; ?>
 				</div>
 			</li>

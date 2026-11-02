@@ -1,18 +1,18 @@
-=== One Click Multisite ===
+=== Siteunfold – Convert Your Site to Multisite ===
 Contributors: nareknovembit
 Tags: multisite, network, network setup, convert, wp-config
 Requires at least: 6.4
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Turn a single WordPress site into a multisite network with one click, and back again. No hand-editing of wp-config.php or .htaccess.
+Convert your site to Multisite with one click, and back again. No hand-editing of wp-config.php or .htaccess.
 
 == Description ==
 
-Enabling multisite by hand means following WordPress's Network Setup steps: add a constant to wp-config.php, run the network installer, then copy two blocks of generated code into wp-config.php and .htaccess and log in again. One Click Multisite does all of that for you from **Tools → Convert to Multisite**.
+Enabling multisite by hand means following WordPress's Network Setup steps: add a constant to wp-config.php, run the network installer, then copy two blocks of generated code into wp-config.php and .htaccess and log in again. Siteunfold does all of that for you from **Tools → Convert to Multisite**.
 
 **What it does**
 
@@ -79,7 +79,7 @@ Your network keeps working. The plugin stores no settings. It only removes the s
 
 == Privacy ==
 
-One Click Multisite does not collect, store or send any personal data, and it contains no tracking.
+Siteunfold does not collect, store or send any personal data, and it contains no tracking.
 
 When you choose sub-domains, WordPress core's network installer (`populate_network()`) makes one HTTP request to a random sub-domain of your own site, to check that wildcard DNS works. That request goes only to your own domain.
 
@@ -90,6 +90,9 @@ When you choose sub-domains, WordPress core's network installer (`populate_netwo
 
 == Changelog ==
 
+= 1.2.0 =
+* Renamed from "One Click Multisite" to Siteunfold. Networks converted by earlier versions can still be reverted.
+
 = 1.1.0 =
 * New: Revert to Single Site (Network Admin → Settings), for networks that only hold the main site.
 * Fix: the main site's permalink structure is kept when converting. WordPress's installer used to reset it, changing existing URLs.
@@ -99,6 +102,9 @@ When you choose sub-domains, WordPress core's network installer (`populate_netwo
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+The plugin is now called Siteunfold. Nothing else changes for your site.
 
 = 1.1.0 =
 Adds Revert to Single Site and keeps your permalinks when converting.

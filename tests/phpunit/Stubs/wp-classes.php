@@ -3,7 +3,7 @@
  * Minimal stand-ins for the WordPress classes the revert checks instantiate.
  * Brain Monkey stubs functions, not classes, so these are loaded by the bootstrap.
  *
- * @package OneClickMultisite
+ * @package Siteunfold
  */
 
 declare(strict_types=1);

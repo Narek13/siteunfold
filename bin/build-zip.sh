@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 #
-# Builds dist/one-click-multisite.zip for WordPress.org.
+# Builds dist/siteunfold.zip for WordPress.org.
 # What is left out is defined once, in .distignore.
 
 set -euo pipefail
 
-PLUGIN=one-click-multisite
+PLUGIN=siteunfold
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DIST="$ROOT/dist"
 

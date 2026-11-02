@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Tests\Unit;
+namespace Siteunfold\Tests\Unit;
 
 use Brain\Monkey;
 use Brain\Monkey\Functions;
-use OneClickMultisite\Conversion\Environment;
-use OneClickMultisite\Conversion\PrerequisiteChecker;
+use Siteunfold\Conversion\Environment;
+use Siteunfold\Conversion\PrerequisiteChecker;
 use PHPUnit\Framework\TestCase;
 
 /**

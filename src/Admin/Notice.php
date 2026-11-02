@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Admin;
+namespace Siteunfold\Admin;
 
-use OneClickMultisite\Conversion\ConversionResult;
+use Siteunfold\Conversion\ConversionResult;
 
 /**
  * Carries the conversion outcome across the post/redirect/get round trip.
@@ -16,7 +16,7 @@ final class Notice {
 	/**
 	 * Transient key prefix; the context and user ID are appended.
 	 */
-	public const TRANSIENT_PREFIX = 'one_click_multisite_notice_';
+	public const TRANSIENT_PREFIX = 'siteunfold_notice_';
 
 	/**
 	 * Result of converting a single site into a network.

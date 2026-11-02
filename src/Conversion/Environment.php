@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Conversion;
+namespace Siteunfold\Conversion;
 
 /**
  * Facts about the current installation that the network setup depends on.

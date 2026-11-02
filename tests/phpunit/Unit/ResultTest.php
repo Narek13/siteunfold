@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Tests\Unit;
+namespace Siteunfold\Tests\Unit;
 
-use OneClickMultisite\Conversion\ConversionResult;
-use OneClickMultisite\Conversion\PrerequisiteResult;
+use Siteunfold\Conversion\ConversionResult;
+use Siteunfold\Conversion\PrerequisiteResult;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace OneClickMultisite\Conversion;
+namespace Siteunfold\Conversion;
 
 use WP_Filesystem_Base;
 
@@ -35,7 +35,7 @@ final class MultisiteConverter {
 	 */
 	public function convert( bool $requestedSubdomain ): ConversionResult {
 		if ( ! $this->checker->canConvert() ) {
-			return ConversionResult::failure( __( 'One or more prerequisites are not met.', 'one-click-multisite' ) );
+			return ConversionResult::failure( __( 'One or more prerequisites are not met.', 'siteunfold' ) );
 		}
 
 		$environment      = $this->checker->environment();
@@ -46,7 +46,7 @@ final class MultisiteConverter {
 
 		$filesystem = $environment->filesystem();
 		if ( null === $filesystem ) {
-			return ConversionResult::failure( __( 'Could not initialise the WordPress file system.', 'one-click-multisite' ) );
+			return ConversionResult::failure( __( 'Could not initialise the WordPress file system.', 'siteunfold' ) );
 		}
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -95,7 +95,7 @@ final class MultisiteConverter {
 				return $htaccessResult;
 			}
 		} else {
-			$warnings[] = __( 'This server does not read .htaccess. Add the multisite rewrite rules to your web server configuration (for nginx, see https://developer.wordpress.org/advanced-administration/server/web-server/nginx/).', 'one-click-multisite' );
+			$warnings[] = __( 'This server does not read .htaccess. Add the multisite rewrite rules to your web server configuration (for nginx, see https://developer.wordpress.org/advanced-administration/server/web-server/nginx/).', 'siteunfold' );
 		}
 
 		$configResult = $this->writeWpConfig( $filesystem, $subdomainInstall, $domain, $base );
@@ -120,12 +120,12 @@ final class MultisiteConverter {
 	private function writeWpConfig( WP_Filesystem_Base $filesystem, bool $subdomainInstall, string $domain, string $base ): ConversionResult {
 		$configFile = $this->checker->environment()->wpConfigPath();
 		if ( null === $configFile ) {
-			return ConversionResult::failure( __( 'wp-config.php not found.', 'one-click-multisite' ) );
+			return ConversionResult::failure( __( 'wp-config.php not found.', 'siteunfold' ) );
 		}
 
 		$contents = $filesystem->get_contents( $configFile );
 		if ( ! is_string( $contents ) || '' === $contents ) {
-			return ConversionResult::failure( __( 'wp-config.php is empty or unreadable.', 'one-click-multisite' ) );
+			return ConversionResult::failure( __( 'wp-config.php is empty or unreadable.', 'siteunfold' ) );
 		}
 
 		$updated = $this->wpConfig->insert(
@@ -142,7 +142,7 @@ final class MultisiteConverter {
 		);
 
 		if ( null === $updated ) {
-			return ConversionResult::failure( __( 'Could not find where to add the multisite settings in wp-config.php (neither the "stop editing" line nor the wp-settings.php include was found).', 'one-click-multisite' ) );
+			return ConversionResult::failure( __( 'Could not find where to add the multisite settings in wp-config.php (neither the "stop editing" line nor the wp-settings.php include was found).', 'siteunfold' ) );
 		}
 
 		if ( $updated === $contents ) {
@@ -150,7 +150,7 @@ final class MultisiteConverter {
 		}
 
 		if ( ! Environment::writeKeepingMode( $filesystem, $configFile, $updated ) ) {
-			return ConversionResult::failure( __( 'Could not write to wp-config.php.', 'one-click-multisite' ) );
+			return ConversionResult::failure( __( 'Could not write to wp-config.php.', 'siteunfold' ) );
 		}
 
 		return ConversionResult::success();
@@ -189,7 +189,7 @@ final class MultisiteConverter {
 		$lines = HtaccessRules::lines( $subdomainInstall, $base, $environment->rewriteBase() );
 
 		if ( ! insert_with_markers( $environment->htaccessPath(), 'WordPress', $lines ) ) {
-			return ConversionResult::failure( __( 'Could not write to .htaccess.', 'one-click-multisite' ) );
+			return ConversionResult::failure( __( 'Could not write to .htaccess.', 'siteunfold' ) );
 		}
 
 		return ConversionResult::success();
